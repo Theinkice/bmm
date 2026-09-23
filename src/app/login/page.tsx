@@ -112,6 +112,10 @@ export default function Page() {
     setState({ loginRegisterLoading: true })
     // 注册账号
     if (state.isRegisterMode) {
+      // 拦截注册，不请求后端接口
+      setState({ loginRegisterLoading: false })
+      setState({ authError: { title: '注册失败', desc: '网站已关闭新用户注册' } })
+      return
       const result = await runAction(actRegisterUser(values), { errToast: { hidden: true } })
       setState({ loginRegisterLoading: false })
       if (!result.ok) {
